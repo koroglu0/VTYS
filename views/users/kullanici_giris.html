@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kullanıcı Girişi</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      /* Resminizin yolunu belirtin */
+      background-size: cover;
+      /* Resmi kaplayacak şekilde boyutlandırır */
+      background-position: center;
+      background-color: #1c1d1f;
+      /* Resmi ortalar */
+      margin: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    .login-container {
+      background-color: #970a00;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+      width: 500px;
+      text-align: center;
+    }
+
+    h2 {
+      color: #000000;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0;
+      box-sizing: border-box;
+    }
+
+    button {
+      background-color: #000000;
+      color: white;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #000000;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="login-container">
+    <h2>Kültür Köşesi Login</h2>
+    <form id="girisForm">
+      <label for="email">E-mail:</label>
+      <input type="text" id="email" name="email" class="form-control" required />
+
+      <label for="password">Şifre:</label>
+      <input type="password" id="password" name="password" class="form-control" required />
+
+      <button type="submit"onclick="formData()">Giriş Yap</button>
+    </form>
+  </div>
+
+
+  <script>
+    function formData() {
+      var email = document.getElementById('email').value
+      var password = document.getElementById('password').value
+
+      fetch(`http://localhost:3000/user/login`, {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          email,
+          password
+        })
+      })
+        .then(response => response.json())
+        .then(data => {
+          console.log(data);
+        })
+        .catch(error => console.error('Hata:', error));
+    }
+
+    document.getElementById('girisForm').addEventListener('submit', function (event) {
+
+      alert('Giriş Başarılı');
+      event.preventDefault(); // Formun sayfayı yenilemesini engeller
+    })
+  </script>
+
+</body>
+
+</html>
